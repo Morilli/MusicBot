@@ -31,6 +31,7 @@ import com.sedmelluq.discord.lavaplayer.source.soundcloud.SoundCloudAudioSourceM
 import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
 import dev.lavalink.youtube.YoutubeAudioSourceManager;
+import dev.lavalink.youtube.YoutubeSourceOptions;
 import dev.lavalink.youtube.clients.Web;
 import net.dv8tion.jda.api.entities.Guild;
 
@@ -55,8 +56,10 @@ public class PlayerManager extends DefaultAudioPlayerManager
 
         if (config.getYtPoToken() != null && config.getYtVisitorData() != null)
             Web.setPoTokenAndVisitorData(config.getYtPoToken(), config.getYtVisitorData());
-        
-        YoutubeAudioSourceManager yt = new YoutubeAudioSourceManager(true);
+
+        YoutubeSourceOptions options = new YoutubeSourceOptions()
+                .setRemoteCipher("https://cipher.kikkia.dev/", null, "JMusicBot-fork");
+        YoutubeAudioSourceManager yt = new YoutubeAudioSourceManager(options, YoutubeAudioSourceManager.DEFAULT_CLIENTS);
         yt.setPlaylistPageCount(bot.getConfig().getMaxYTPlaylistPages());
         registerSourceManager(yt);
 
